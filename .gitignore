@@ -18,7 +18,7 @@
 Icon?
 
 # EFCore Migrations
-[Mm]igrations
+# [Mm]igrations
 
 # SQLite Database
 *.db

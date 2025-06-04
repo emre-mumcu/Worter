@@ -33,6 +33,37 @@ namespace Wörter.Controllers
 			return View(viewModel);
 		}
 
+		[HttpGet("/CKEView/{id}")]
+		public ActionResult CKEView([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, [FromRoute(Name = "id")] string? noteID)
+		{
+			var viewModel = new NotizVM();
+
+			if (!string.IsNullOrEmpty(noteID))
+			{
+				var entity = appDbContext.Notizen.FirstOrDefault(n => n.Id == Convert.ToInt64(noteID));
+				mapper.Map(entity, viewModel);
+			}
+
+			return View(viewModel);
+		}
+
+		[HttpGet("/CKEDelete/{id}")]
+		public ActionResult CKEDelete([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, [FromRoute(Name = "id")] string? noteID)
+		{
+			if (!string.IsNullOrEmpty(noteID))
+			{
+				var entity = appDbContext.Notizen.FirstOrDefault(n => n.Id == Convert.ToInt64(noteID));
+				if (entity != null)
+				{
+					appDbContext.Notizen.Remove(entity);
+					appDbContext.SaveChanges();
+				}
+				
+			}
+
+			return RedirectToAction("CKE", new { Id = noteID });
+		}
+
 		[HttpPost("/SaveCKE")]
 		public ActionResult SaveCKE([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, NotizVM vm)
 		{

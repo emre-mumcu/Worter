@@ -1,0 +1,23 @@
+﻿@model NotizVM
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+}
+
+<partial name="_Menu" />
+
+<div class="d-flex flex-column vh-100 align-items-center">
+	
+	<input asp-for="Id" type="hidden" />
+
+	<a href="/CKE/@Model.Id" class="text-decoration-none"><i class="fa-solid fa-pen-to-square"></i></a>
+	<h1 style="margin-bottom: 25px;">@Model.Title</h1>
+
+	@Html.Raw(Model.TextContent)
+</div>
+
+

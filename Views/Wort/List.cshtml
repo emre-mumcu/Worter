@@ -23,7 +23,7 @@
 		@foreach (var i in Model ?? Enumerable.Empty<Wörter.AppData.Entities.Wort>())
 		{
 			<tr>
-				<td><a href="/Edit/@i.Id">@i.DE</a></td>
+				<td><a href="/Edit/@i.Id" class="text-decoration-none">@i.DE</a></td>
 				<td>
 					@if (!string.IsNullOrEmpty(i.Verbkonjugation))
 					{

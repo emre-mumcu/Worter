@@ -4,9 +4,10 @@
 
 <hr>
 
-<table class="table">
+<table class="table table-striped">
 	<thead>
 		<tr>
+			<th>#</th>
 			<th>Titles</th>
 		</tr>
 	</thead>
@@ -14,7 +15,13 @@
 		@foreach (var i in Model ?? Enumerable.Empty<Wörter.AppData.Entities.Notiz>())
 		{
 			<tr>
-				<td><a href="/CKE/@i.Id">@i.Title</a></td>
+				<th>
+					<a href="/CKE/@i.Id" class="text-decoration-none text-success"><i class="fa-solid fa-pen-to-square me-4"></i></a>
+					<a href="/CKEDelete/@i.Id" class="text-decoration-none text-danger"><i class="fa-solid fa-trash"></i></a>
+				</th>
+				<td>
+					<a href="/CKEView/@i.Id" class="text-decoration-none">@i.Title</a>
+				</td>
 			</tr>
 		}
 	</tbody>
