@@ -17,7 +17,7 @@
 				<div class="carousel-item @(i == 0 ? "active":"")">
 					<div class="card p-4">
 						<h5 class="text-muted mb-4">Frage @(i + 1). Was bedeutet das Folgende?</h5>
-						<h2>@q.Frage</h2>
+						<h2 class="frg" grp=@($"q{i + 1}")>@q.Frage</h2>
 						@for(int a=0; a<q.Optionen.Count; a++)
 						{
 							var answer = q.Optionen[a];
@@ -46,9 +46,11 @@
 	</div>
 </form>
 
-<div id="result" class="mt-4 d-none">
+<div id="result" class="my-4 d-none">
 	<h4>Result</h4>
 	<p id="scoreText"></p>
+	<hr>
+	<div id="resultsummary"></div>
 </div>
 
 @section Scripts {
@@ -109,6 +111,7 @@
 			document.getElementById('result').classList.remove('d-none');
 
 			updateUI();
+			PrintSummary();
 		});
 
 		updateButtons();
@@ -129,6 +132,37 @@
 					label.classList.add('text-danger');
 				} 				
 			});			
+		}
+
+		function PrintSummary()
+		{
+			const targetDiv = document.getElementById('resultsummary');
+
+			targetDiv.innerHTML = "";
+
+			var questions = document.querySelectorAll('h2.frg');
+
+			questions.forEach(h => {				
+
+				const grp = h.getAttribute('grp');
+
+				targetDiv.innerHTML += "<b>" + grp + ". " + h.textContent + "</b><br/>";
+
+				const radios = document.querySelectorAll(`input[name="${grp}"]`);
+
+				radios.forEach(radio => {
+					const label = radio.closest('label'); // assumes <label> wraps the input
+
+					let ek = radio.checked ? " (CHECKED)" : "";
+
+					if (radio.value == "correct") {
+						targetDiv.innerHTML += "+" + label.textContent + ek + "<br/>";
+					} else {
+						targetDiv.innerHTML += "-" + label.textContent + ek + "<br/>";
+					}
+				});
+
+			});
 		}
 	</script>
 }
