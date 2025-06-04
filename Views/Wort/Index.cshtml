@@ -1,0 +1,148 @@
+﻿@model WortVM
+
+<a href="/"><i class="fa-solid fa-home p-2 m-2 my-4 shadow"></i></a>
+<a href="/Edit"><i class="fa-solid fa-plus p-2 m-2 my-4 shadow"></i></a>
+<a href="/List"><i class="fa-solid fa-list p-2 m-2 my-4 shadow"></i></a>
+
+<form method="post" action="/Save" class="col-sm-8 offset-sm-2">
+
+	<h1 class="my-4">@(Model.Id > 0 ? "Update" : "Insert")</h1>
+	<hr>
+	<input asp-for="Id" type="hidden" />
+
+	<div class="row my-2">
+		<label asp-for="DE" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-4">
+			<input asp-for="DE" class="form-control" disabled=@(Model.Id > 0 ? "disabled" : null)>
+		</div>
+		<div class="col-sm-1">
+			<a href="#" onclick="lookup();"><i class="fa-solid fa-magnifying-glass p-2 shadow rounded-4"></i></a>
+		</div>
+		<label asp-for="Art" class="col-sm-1 col-form-label"></label>
+		<div class="col-sm-4">
+			<select asp-for="Art" asp-items="Model.TypeOptions" class="form-control"
+				onchange="onTypeChanged(this.value)">
+				<option value="-1">Select</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row my-2">
+		<label asp-for="Aussprache" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input asp-for="Aussprache" class="form-control">
+		</div>
+	</div>
+
+	<div class="row my-2 noun">
+		<label asp-for="Geschlecht" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-4">
+			<input asp-for="Geschlecht" class="form-control">
+		</div>
+		<label asp-for="Plural" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-4">
+			<input asp-for="Plural" class="form-control">
+		</div>
+	</div>
+
+	<div class="row my-2 verb">
+		<label asp-for="Verbkonjugation" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<textarea asp-for="Verbkonjugation" class="form-control"></textarea>
+		</div>
+	</div>
+
+	<div class="row my-2">
+		<label asp-for="EN" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<textarea asp-for="EN" class="form-control"></textarea>
+		</div>
+	</div>
+
+	<div class="row my-2">
+		<label asp-for="TR" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<textarea asp-for="TR" class="form-control"></textarea>
+		</div>
+	</div>
+
+	<div class="row my-2">
+		<label asp-for="Beispiel" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<textarea asp-for="Beispiel" class="form-control"></textarea>
+		</div>
+	</div>
+
+	<div class="row my-2">
+		<label asp-for="Erläuterung" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<textarea asp-for="Erläuterung" class="form-control"></textarea>
+		</div>
+	</div>
+
+	<div class="row my-2">
+		<label class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ? "Update" :
+				"Insert")</ button >
+		</div>
+	</div>
+	@Html.AntiForgeryToken()
+</form>
+
+
+@section Scripts {
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var elements = document.querySelectorAll('.noun, .verb');
+			elements.forEach(function (element) {
+				element.style.display = "none";
+			});
+		});
+
+		function onTypeChanged(val) {
+			var elements = document.querySelectorAll('.noun, .verb');
+			var nounElements = document.querySelectorAll('.noun');
+			var verbElements = document.querySelectorAll('.verb');
+
+			if (val == 'Substantiv') {
+				nounElements.forEach(function (element) { element.style.display = ""; });
+				verbElements.forEach(function (element) { element.style.display = "none"; });
+			}
+			else if (val == 'Verb') {
+				nounElements.forEach(function (element) { element.style.display = "none"; });
+				verbElements.forEach(function (element) { element.style.display = ""; });
+			}
+			else {
+				elements.forEach(function (element) { element.style.display = "none"; });
+			}
+		}
+
+		function lookup() {
+
+			const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+			const requestData = {
+				word: document.querySelector('input[name="DE"]').value
+			};
+
+			fetch('/Lookup', {
+				method: "POST",
+				headers: { "Content-Type": "application/json", "RequestVerificationToken": token },
+				body: JSON.stringify(requestData)
+			})
+				.then(response => {
+					if (!response.ok) { throw new Error("Network response was not ok"); }
+					return response.json();
+				})
+				.then(data => {
+					if (data.found) {
+						window.location.replace(data.link);
+					}
+				})
+				.catch(error => {
+					console.error("Error:", error);
+				});
+		}
+	</script>
+}

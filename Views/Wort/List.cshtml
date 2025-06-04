@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Wörter.AppData.Entities.Wort>?
+
+<a href="/"><i class="fa-solid fa-home p-2 m-2 my-4 shadow"></i></a>
+<a href="/Edit"><i class="fa-solid fa-plus p-2 m-2 my-4 shadow"></i></a>
+<a href="/List"><i class="fa-solid fa-list p-2 m-2 my-4 shadow"></i></a>
+
+<hr>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Word</th>
+			<th>Conj.</th>
+			<th>Type</th>
+			<th>Pron.</th>
+			<th>Plural</th>
+			<th>Gender</th>
+			<th>English</th>
+			<th>Turkish</th>
+			<th>Sample</th>
+			<th>Detail</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var i in Model ?? Enumerable.Empty<Wörter.AppData.Entities.Wort>())
+		{
+			<tr>
+				<td><a href="/Edit/@i.Id">@i.DE</a></td>
+				<td>
+					@if (!string.IsNullOrEmpty(i.Verbkonjugation))
+					{
+						<button type="button" class="btn btn-sm btn-warning" data-bs-toggle="popover"
+							data-bs-title="Conj.: @i.DE" data-bs-placement="left" data-bs-html="true"
+							data-bs-content="<pre>@i.Verbkonjugation</pre>"><i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					}
+					else
+					{
+						<button type="button" disabled class="btn btn-sm btn-secondary"><i
+								class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					}
+				</td>
+				<td>@i.Art</td>
+				<td>@i.Aussprache</td>
+				<td>@i.Plural</td>
+				<td>@i.Geschlecht</td>
+				<td>@i.EN</td>
+				<td>@i.TR</td>
+				<td>
+					@if (!string.IsNullOrEmpty(i.Beispiel))
+					{
+						<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="popover"
+							data-bs-title="Sample: @i.DE" data-bs-placement="left" data-bs-content="@i.Beispiel"><i
+								class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					}
+					else
+					{
+						<button type="button" disabled class="btn btn-sm btn-secondary"><i
+								class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					}
+				</td>
+				<td>
+					@if (!string.IsNullOrEmpty(i.Erläuterung))
+					{
+						<button type="button" class="btn btn-sm btn-success" data-bs-toggle="popover"
+							data-bs-title="Detail: @i.DE" data-bs-placement="left" data-bs-content="@i.Erläuterung"><i
+								class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					}
+					else
+					{
+						<button type="button" disabled class="btn btn-sm btn-secondary"><i
+								class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<script>
+	var popoverList;
+
+	document.addEventListener("DOMContentLoaded", function () {
+		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+		popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+			return new bootstrap.Popover(popoverTriggerEl);
+		});
+	});
+
+	document.addEventListener("show.bs.popover", function (event) {
+		popoverList.forEach(function (popover) {
+			if (popover._element !== event.target) {
+				popover.hide();
+			}
+		});
+	});
+</script>
