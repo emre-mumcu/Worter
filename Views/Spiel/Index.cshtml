@@ -1,5 +1,9 @@
 ﻿@model List<SpielVM>
 
+<partial name="_Menu" />
+
+<h1 class="my-4">My Word Game</h1>
+
 <form id="quizForm">
 
 	<div id="quizCarousel" class="carousel slide" data-bs-interval="false">
@@ -12,7 +16,8 @@
 
 				<div class="carousel-item @(i == 0 ? "active":"")">
 					<div class="card p-4">
-						<h5>@q.Frage</h5>
+						<h5 class="text-muted mb-4">Frage @(i + 1). Was bedeutet das Folgende?</h5>
+						<h2>@q.Frage</h2>
 						@for(int a=0; a<q.Optionen.Count; a++)
 						{
 							var answer = q.Optionen[a];
@@ -20,7 +25,7 @@
 							string val = isCorrect ? "correct" :"wrong";
 							string cls = isCorrect ? "text-primary": "text-danger";
 
-							<div class="form-check">
+							<div class="form-check" style="margin-left: 25px;">
 								
 								<label class="form-check-label" for=@($"q{i + 1}a{a + 1}")>
 									<input class="form-check-input" type="radio" name=@($"q{i + 1}") value="@val"
