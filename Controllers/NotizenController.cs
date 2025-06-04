@@ -101,6 +101,7 @@ namespace Wörter.Controllers
 		public IActionResult NoteList([FromServices] AppDbContext appDbContext)
 		{
 			var list = appDbContext.Notizen.OrderBy(n => n.Title)
+			.Where(n => n.State == 1)
 			.AsEnumerable() // Fetches data first
 			.Select(e =>
 			{

@@ -16,6 +16,7 @@ namespace Wörter.Controllers
 		public IActionResult List([FromServices] AppDbContext appDbContext)
 		{
 			var list = appDbContext.Wörter.OrderBy(w => w.DE)
+			.Where(w => w.State ==  1)
 			.AsEnumerable() // Fetches data first
 			.Select(e =>
 			{
