@@ -1,0 +1,6 @@
+.form-cotrol-readonly {
+	background-color: #e9ecef;
+	opacity: 1;
+	pointer-events: none;
+	user-select: none; 
+}

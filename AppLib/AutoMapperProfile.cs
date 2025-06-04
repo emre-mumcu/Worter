@@ -10,5 +10,6 @@ public class AutoMapperProfile: Profile
 	public AutoMapperProfile()
 	{
 		CreateMap<Wort, WortVM>().ReverseMap();
+		CreateMap<Notiz, NotizVM>().ReverseMap();
 	}
 }

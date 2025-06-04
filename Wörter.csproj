@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Models/" />
     <Folder Include="Views/Wort/" />
-    <Folder Include="wwwroot/" />
   </ItemGroup>
 
 </Project>

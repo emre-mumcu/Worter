@@ -1,0 +1,44 @@
+﻿@model NotizVM
+
+@section Styles {
+	<style>
+		.editor-wrapper {
+			margin: 20px 0;
+		}
+	</style>
+}
+
+@section Scripts {
+
+	<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+
+	<script>
+		ClassicEditor
+			.create(document.querySelector('#TextContent'))
+			.catch(error => {
+				console.error(error);
+			});
+	</script>
+}
+
+<partial name="_Menu" />
+
+<form action="/SaveCKE" method="post">
+
+	<input asp-for="Id" type="hidden" />
+
+	<div class="editor-wrapper">
+
+		<div class="row my-2">
+			<label asp-for="Title" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="Title" class="form-control">
+			</div>
+		</div>
+		
+		<textarea asp-for="TextContent" ></textarea>
+		
+	</div>
+	
+	<button class="btn btn-primary" type="submit">Save</button>
+</form>

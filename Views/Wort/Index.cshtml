@@ -1,8 +1,6 @@
 ﻿@model WortVM
 
-<a href="/"><i class="fa-solid fa-home p-2 m-2 my-4 shadow"></i></a>
-<a href="/Edit"><i class="fa-solid fa-plus p-2 m-2 my-4 shadow"></i></a>
-<a href="/List"><i class="fa-solid fa-list p-2 m-2 my-4 shadow"></i></a>
+<partial name="_Menu" />
 
 <form method="post" action="/Save" class="col-sm-8 offset-sm-2">
 
@@ -13,7 +11,10 @@
 	<div class="row my-2">
 		<label asp-for="DE" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-4">
-			<input asp-for="DE" class="form-control" disabled=@(Model.Id > 0 ? "disabled" : null)>
+			@* <input asp-for="DE" class="form-control" disabled=@(Model.Id > 0 ? "disabled" : null)> *@
+			<input asp-for="DE" class="form-control @(Model.Id > 0 ? "form-cotrol-readonly" : null)"
+				readonly=@(Model.Id > 0 ? "readonly" : null)>
+			<span asp-validation-for="DE" class="text-danger"></span>
 		</div>
 		<div class="col-sm-1">
 			<a href="#" onclick="lookup();"><i class="fa-solid fa-magnifying-glass p-2 shadow rounded-4"></i></a>
@@ -56,6 +57,7 @@
 		<label asp-for="EN" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
 			<textarea asp-for="EN" class="form-control"></textarea>
+			<span asp-validation-for="EN" class="text-danger"></span>
 		</div>
 	</div>
 
@@ -63,6 +65,7 @@
 		<label asp-for="TR" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
 			<textarea asp-for="TR" class="form-control"></textarea>
+			<span asp-validation-for="TR" class="text-danger"></span>
 		</div>
 	</div>
 
@@ -92,16 +95,70 @@
 
 
 @section Scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+
 	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			var elements = document.querySelectorAll('.noun, .verb');
-			elements.forEach(function (element) {
-				element.style.display = "none";
+
+		@* const onReady = (callback) => {
+			if (document.readyState !== 'loading') {
+				callback();
+			} else {
+				document.addEventListener('DOMContentLoaded', callback);
+			}
+		};
+
+		onReady(() => {
+			console.log("Ready with arrow function");
+			document.querySelector('#btn')?.addEventListener('click', () => {
+				alert('Clicked!');
 			});
+		}); *@
+
+		@* document.addEventListener("DOMContentLoaded", function () {
+			// Your code here
+		});
+
+		document.addEventListener("DOMContentLoaded", () => {
+			console.log("DOM is ready!");
+		}); *@
+
+		@* // IIFE (Immediately Invoked Function Expression)
+		(function () {
+			// Code inside this function runs immediately
+		})();
+
+		(() => {
+			// Code here runs immediately
+		})();
+
+		(function () {
+			document.addEventListener("DOMContentLoaded", () => {
+				// Code here runs when DOM is ready
+			});
+		})(); *@
+
+
+		document.addEventListener('DOMContentLoaded', function () {
+			// var elements = document.querySelectorAll('.noun, .verb');
+			// elements.forEach(function (element) { element.style.display = "none"; });
+			//onTypeChanged();
+
+			const selectElement = document.querySelector('select#Art'); // or getElementById('yourSelectId')
+			const selectedText = selectElement.options[selectElement.selectedIndex].text;
+			onTypeChanged(selectedText);
 		});
 
 		function onTypeChanged(val) {
+
+			if (typeof val === 'undefined') {
+				return;
+			}
+
 			var elements = document.querySelectorAll('.noun, .verb');
+			
 			var nounElements = document.querySelectorAll('.noun');
 			var verbElements = document.querySelectorAll('.verb');
 

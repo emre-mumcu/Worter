@@ -35,5 +35,6 @@ public partial class AppDbContext : DbContext
 	}
 
 	public virtual DbSet<Wort> Wörter => Set<Wort>();
+	public virtual DbSet<Notiz> Notizen => Set<Notiz>();
 }
 

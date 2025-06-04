@@ -1,6 +1,4 @@
-using System.Globalization;
-using System.Net;
-using System.Text;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -127,15 +125,7 @@ namespace Wörter.Controllers
 			return Json(lookupVM);
 		}
 
-		private string NormalizeString(string input)
-		{
-			input = WebUtility.HtmlDecode(input);
-			return new string(input
-				.Normalize(NormalizationForm.FormD) // Decomposes diacritics
-				.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark) // Removes diacritics
-				.Where(c => !char.IsControl(c)) // Removes control characters
-				.ToArray());
-		}
+
 
 
 

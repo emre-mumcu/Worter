@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Wörter.AppData.Entities.Notiz>?
+
+<partial name="_Menu" />
+
+<hr>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Titles</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var i in Model ?? Enumerable.Empty<Wörter.AppData.Entities.Notiz>())
+		{
+			<tr>
+				<td><a href="/CKE/@i.Id">@i.Title</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
+
