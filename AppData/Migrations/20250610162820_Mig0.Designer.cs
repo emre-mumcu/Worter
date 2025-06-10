@@ -11,7 +11,7 @@ using Wörter.AppData;
 namespace Wörter.AppData.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250610140159_Mig0")]
+    [Migration("20250610162820_Mig0")]
     partial class Mig0
     {
         /// <inheritdoc />
