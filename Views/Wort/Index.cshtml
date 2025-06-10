@@ -8,88 +8,141 @@
 	<hr>
 	<input asp-for="Id" type="hidden" />
 
-	<div class="row my-2">
-		<label asp-for="DE" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-4">
-			@* <input asp-for="DE" class="form-control" disabled=@(Model.Id > 0 ? "disabled" : null)> *@
-			<input asp-for="DE" class="form-control @(Model.Id > 0 ? "form-cotrol-readonly" : null)"
-				readonly=@(Model.Id > 0 ? "readonly" : null)>
-			<span asp-validation-for="DE" class="text-danger"></span>
+	<div class="row">
+
+		<div class="col-sm-8 offset-sm-2">
+
+			<div class="row my-2">
+				<a href="#" onclick="lookup();" class="col-sm-3 col-form-label">DE</a>
+				<div class="col-sm-9">
+					<input asp-for="DE" class="form-control @(Model.Id > 0 ? "form-cotrol-readonly" : null)"
+						readonly=@(Model.Id > 0 ? "readonly" : null)>
+				</div>
+
+				<span asp-validation-for="DE" class="text-danger"></span>
+			</div>
+
+			<div class="row my-2">
+				<label asp-for="EN" class="col-sm-3 col-form-label"></label>
+				<div class="col-sm-9">
+					<textarea asp-for="EN" class="form-control"></textarea>
+					<span asp-validation-for="EN" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<label asp-for="TR" class="col-sm-3 col-form-label"></label>
+				<div class="col-sm-9">
+					<textarea asp-for="TR" class="form-control"></textarea>
+					<span asp-validation-for="TR" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<label asp-for="Aussprache" class="col-sm-3 col-form-label"></label>
+				<div class="col-sm-9">					
+					<input asp-for="Aussprache" class="form-control">
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<div class="col-sm-9 offset-sm-3">
+					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
+												"Update" : "Insert")
+					</button>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="row my-2">
+				<label asp-for="Art" class="col-sm-3 col-form-label"></label>
+				<div class="col-sm-9">
+					<select asp-for="Art" asp-items="Model.TypeOptions" class="form-control"
+						onchange="onTypeChanged(this.value)">
+						<option value="-1">Select</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row my-2 noun">
+				<div class="col-sm-12 ">
+					<label asp-for="Geschlecht" class="col-sm-2 col-form-label"></label>
+					<div class="col-sm-12">
+						<input asp-for="Geschlecht" class="form-control">
+					</div>
+					<label asp-for="Plural" class="col-sm-2 col-form-label"></label>
+					<div class="col-sm-12">
+						<input asp-for="Plural" class="form-control">
+					</div>
+				</div>
+			</div>
+
+			<div class="row my-2 verb">
+				<div class="col-sm-12 ">
+					<label asp-for="Verbkonjugation" class="col-sm-2 col-form-label"></label>
+					<textarea rows="6" asp-for="Verbkonjugation" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
+												"Update" : "Insert")
+					</button>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="row my-2">
+				<div class="col-sm-12"><label asp-for="Beispiel" class="col-sm-2 col-form-label"></label>
+					<textarea rows="5" asp-for="Beispiel" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<div class="col-sm-12"><label asp-for="Erläuterung" class="col-sm-2 col-form-label"></label>
+					<textarea rows="5" asp-for="Erläuterung" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
+												"Update" : "Insert")
+					</button>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="row my-2">
+				<div class="col-sm-12"><label asp-for="Synonym" class="col-sm-2 col-form-label"></label>
+					<input asp-for="Synonym" class="form-control">
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<div class="col-sm-12"><label asp-for="Gegenteil" class="col-sm-2 col-form-label"></label>
+					<input asp-for="Gegenteil" class="form-control">
+				</div>
+			</div>
+
+			<div class="row my-2">
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
+												"Update" : "Insert")
+					</button>
+				</div>
+			</div>
+
 		</div>
-		<div class="col-sm-1">
-			<a href="#" onclick="lookup();"><i class="fa-solid fa-magnifying-glass p-2 shadow rounded-4"></i></a>
-		</div>
-		<label asp-for="Art" class="col-sm-1 col-form-label"></label>
-		<div class="col-sm-4">
-			<select asp-for="Art" asp-items="Model.TypeOptions" class="form-control"
-				onchange="onTypeChanged(this.value)">
-				<option value="-1">Select</option>
-			</select>
-		</div>
+
 	</div>
 
-	<div class="row my-2">
-		<label asp-for="Aussprache" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<input asp-for="Aussprache" class="form-control">
-		</div>
-	</div>
+	@* <input asp-for="DE" class="form-control" disabled=@(Model.Id > 0 ? "disabled" : null)> *@
 
-	<div class="row my-2 noun">
-		<label asp-for="Geschlecht" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-4">
-			<input asp-for="Geschlecht" class="form-control">
-		</div>
-		<label asp-for="Plural" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-4">
-			<input asp-for="Plural" class="form-control">
-		</div>
-	</div>
-
-	<div class="row my-2 verb">
-		<label asp-for="Verbkonjugation" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<textarea asp-for="Verbkonjugation" class="form-control"></textarea>
-		</div>
-	</div>
-
-	<div class="row my-2">
-		<label asp-for="EN" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<textarea asp-for="EN" class="form-control"></textarea>
-			<span asp-validation-for="EN" class="text-danger"></span>
-		</div>
-	</div>
-
-	<div class="row my-2">
-		<label asp-for="TR" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<textarea asp-for="TR" class="form-control"></textarea>
-			<span asp-validation-for="TR" class="text-danger"></span>
-		</div>
-	</div>
-
-	<div class="row my-2">
-		<label asp-for="Beispiel" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<textarea asp-for="Beispiel" class="form-control"></textarea>
-		</div>
-	</div>
-
-	<div class="row my-2">
-		<label asp-for="Erläuterung" class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<textarea asp-for="Erläuterung" class="form-control"></textarea>
-		</div>
-	</div>
-
-	<div class="row my-2">
-		<label class="col-sm-2 col-form-label"></label>
-		<div class="col-sm-10">
-			<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ? "Update" :
-				"Insert")</ button >
-		</div>
-	</div>
 	@Html.AntiForgeryToken()
 </form>
 
@@ -117,7 +170,7 @@
 			});
 		}); *@
 
-		@* document.addEventListener("DOMContentLoaded", function () {
+			@* document.addEventListener("DOMContentLoaded", function () {
 			// Your code here
 		});
 
@@ -125,7 +178,7 @@
 			console.log("DOM is ready!");
 		}); *@
 
-		@* // IIFE (Immediately Invoked Function Expression)
+			@* // IIFE (Immediately Invoked Function Expression)
 		(function () {
 			// Code inside this function runs immediately
 		})();
@@ -141,15 +194,15 @@
 		})(); *@
 
 
-		document.addEventListener('DOMContentLoaded', function () {
-			// var elements = document.querySelectorAll('.noun, .verb');
-			// elements.forEach(function (element) { element.style.display = "none"; });
-			//onTypeChanged();
+			document.addEventListener('DOMContentLoaded', function () {
+				// var elements = document.querySelectorAll('.noun, .verb');
+				// elements.forEach(function (element) { element.style.display = "none"; });
+				//onTypeChanged();
 
-			const selectElement = document.querySelector('select#Art'); // or getElementById('yourSelectId')
-			const selectedText = selectElement.options[selectElement.selectedIndex].text;
-			onTypeChanged(selectedText);
-		});
+				const selectElement = document.querySelector('select#Art'); // or getElementById('yourSelectId')
+				const selectedText = selectElement.options[selectElement.selectedIndex].text;
+				onTypeChanged(selectedText);
+			});
 
 		function onTypeChanged(val) {
 
@@ -158,7 +211,7 @@
 			}
 
 			var elements = document.querySelectorAll('.noun, .verb');
-			
+
 			var nounElements = document.querySelectorAll('.noun');
 			var verbElements = document.querySelectorAll('.verb');
 

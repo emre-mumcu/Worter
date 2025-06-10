@@ -1,6 +1,30 @@
+body {
+	font-family: 'Montserrat', sans-serif !important;  
+	font-weight: 300 !important;
+	font-size: 0.8rem !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select,
+button {
+	font-family: 'Montserrat', sans-serif !important;	
+	font-weight: 300 !important;	
+	font-size: 0.8rem !important;	
+}
+
 .form-cotrol-readonly {
 	background-color: #e9ecef;
 	opacity: 1;
 	pointer-events: none;
 	user-select: none; 
 }
+
+.vertical-text {
+	writing-mode: vertical-rl;
+	/* Right-to-left (common for CJK languages) */
+	/* OR */
+	writing-mode: vertical-lr;
+	/* Left-to-right */ }
