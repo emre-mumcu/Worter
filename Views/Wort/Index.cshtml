@@ -10,11 +10,11 @@
 
 	<div class="row">
 
-		<div class="col-sm-8 offset-sm-2">
+		<div class="col-sm-12 offset-sm-0">
 
 			<div class="row my-2">
-				<a href="#" onclick="lookup();" class="col-sm-3 col-form-label">DE</a>
-				<div class="col-sm-9">
+				<a href="#" onclick="lookup();" class="col-sm-2 col-form-label">DE</a>
+				<div class="col-sm-10">
 					<input asp-for="DE" class="form-control @(Model.Id > 0 ? "form-cotrol-readonly" : null)"
 						readonly=@(Model.Id > 0 ? "readonly" : null)>
 				</div>
@@ -22,120 +22,95 @@
 			</div>
 
 			<div class="row my-2">
-				<label asp-for="Art" class="col-sm-3 col-form-label"></label>
-				<div class="col-sm-9">
+				<label asp-for="Art" class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-2">
 					<select asp-for="Art" asp-items="Model.TypeOptions" class="form-control"
 						onchange="onTypeChanged(this.value)">
 						<option value="-1">Select</option>
 					</select>
 				</div>
+				<label asp-for="Geschlecht" class="col-sm-2 col-form-label noun">Gesch.</label>
+				<div class="col-sm-2">
+					<select asp-for="Geschlecht" asp-items="Model.GenderOptions" class="form-control noun">
+						<option value="-1">Select</option>
+					</select>
+				</div>
+
+				<label asp-for="Plural" class="col-sm-1 col-form-label noun">Pl.</label>
+
+				<div class="col-sm-3">
+					<input asp-for="Plural" class="form-control noun">
+				</div>
 			</div>
 
 			<div class="row my-2">
-				<label asp-for="EN" class="col-sm-3 col-form-label"></label>
-				<div class="col-sm-9">
+				<label asp-for="EN" class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-10">
 					<textarea asp-for="EN" class="form-control"></textarea>
 					<span asp-validation-for="EN" class="text-danger"></span>
 				</div>
 			</div>
 
 			<div class="row my-2">
-				<label asp-for="TR" class="col-sm-3 col-form-label"></label>
-				<div class="col-sm-9">
+				<label asp-for="TR" class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-10">
 					<textarea asp-for="TR" class="form-control"></textarea>
 					<span asp-validation-for="TR" class="text-danger"></span>
 				</div>
 			</div>
 
 			<div class="row my-2">
-				<label asp-for="Aussprache" class="col-sm-3 col-form-label"></label>
-				<div class="col-sm-9">					
+				<label asp-for="Aussprache" class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-10">
 					<input asp-for="Aussprache" class="form-control">
 				</div>
 			</div>
 
 			<div class="row my-2">
-				<div class="col-sm-9 offset-sm-3">
+				<div class="col-sm-10 offset-sm-2">
 					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
 												"Update" : "Insert")
 					</button>
 				</div>
 			</div>
 
-			<hr>
+			<div class="p-3 mb-4 bg-light rounded-3">
 
-
-
-			<div class="row my-2 noun">
-				<div class="col-sm-12 ">
-					<label asp-for="Geschlecht" class="col-sm-2 col-form-label"></label>
-					<div class="col-sm-12">
-						<input asp-for="Geschlecht" class="form-control">
-					</div>
-					<label asp-for="Plural" class="col-sm-2 col-form-label"></label>
-					<div class="col-sm-12">
-						<input asp-for="Plural" class="form-control">
+				<div class="row my-2 verb">
+					<div class="col-sm-12 ">
+						<label asp-for="Verbkonjugation" class="col-sm-2 col-form-label"></label>
+						<textarea rows="6" asp-for="Verbkonjugation" class="form-control"></textarea>
 					</div>
 				</div>
-			</div>
 
-			<div class="row my-2 verb">
-				<div class="col-sm-12 ">
-					<label asp-for="Verbkonjugation" class="col-sm-2 col-form-label"></label>
-					<textarea rows="6" asp-for="Verbkonjugation" class="form-control"></textarea>
+				<div class="row my-2">
+					<div class="col-sm-6"><label asp-for="Beispiel" class="col-sm-2 col-form-label"></label>
+						<textarea rows="5" asp-for="Beispiel" class="form-control"></textarea>
+					</div>
+
+					<div class="col-sm-6"><label asp-for="Erläuterung" class="col-sm-2 col-form-label"></label>
+						<textarea rows="5" asp-for="Erläuterung" class="form-control"></textarea>
+					</div>
 				</div>
-			</div>
 
-			<div class="row my-2">
-				<div class="col-sm-12">
-					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
-												"Update" : "Insert")
-					</button>
+				<div class="row my-2">
+					<div class="col-sm-6"><label asp-for="Synonym" class="col-sm-2 col-form-label"></label>
+						<input asp-for="Synonym" class="form-control">
+					</div>
+
+					<div class="col-sm-6"><label asp-for="Gegenteil" class="col-sm-2 col-form-label"></label>
+						<input asp-for="Gegenteil" class="form-control">
+					</div>
 				</div>
-			</div>
 
-			<hr>
-
-			<div class="row my-2">
-				<div class="col-sm-12"><label asp-for="Beispiel" class="col-sm-2 col-form-label"></label>
-					<textarea rows="5" asp-for="Beispiel" class="form-control"></textarea>
+				<div class="row my-2">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
+														"Update" : "Insert")
+						</button>
+					</div>
 				</div>
-			</div>
 
-			<div class="row my-2">
-				<div class="col-sm-12"><label asp-for="Erläuterung" class="col-sm-2 col-form-label"></label>
-					<textarea rows="5" asp-for="Erläuterung" class="form-control"></textarea>
-				</div>
-			</div>
-
-			<div class="row my-2">
-				<div class="col-sm-12">
-					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
-												"Update" : "Insert")
-					</button>
-				</div>
-			</div>
-
-			<hr>
-
-			<div class="row my-2">
-				<div class="col-sm-12"><label asp-for="Synonym" class="col-sm-2 col-form-label"></label>
-					<input asp-for="Synonym" class="form-control">
-				</div>
-			</div>
-
-			<div class="row my-2">
-				<div class="col-sm-12"><label asp-for="Gegenteil" class="col-sm-2 col-form-label"></label>
-					<input asp-for="Gegenteil" class="form-control">
-				</div>
-			</div>
-
-			<div class="row my-2">
-				<div class="col-sm-12">
-					<button type="submit" class="btn btn-@(Model.Id > 0 ? "warning" : "success")">@(Model.Id > 0 ?
-												"Update" : "Insert")
-					</button>
-				</div>
 			</div>
 
 		</div>
@@ -154,7 +129,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
 
-		<script src="@Url.Content("~/js/customValidator.js")"></script>
+	<script src="@Url.Content("~/js/customValidator.js")"></script>
 
 	<script>
 

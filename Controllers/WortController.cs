@@ -9,20 +9,21 @@ using static Wörter.AppData.AppTypes;
 
 namespace Wörter.Controllers
 {
-    public class WortController : Controller
-    {
+	public class WortController : Controller
+	{
 
 		[HttpGet("/List")]
 		public IActionResult List([FromServices] AppDbContext appDbContext)
 		{
-			var list = appDbContext.Wörter.OrderBy(w => w.DE)
-			.Where(w => w.State ==  1)
+			var list = appDbContext.Wörter
+			.Where(w => w.State == 1)
 			.AsEnumerable() // Fetches data first
 			.Select(e =>
 			{
 				// e.VerbConjugation = e?.VerbConjugation?.Replace("\r\n", "<br>").Replace("\n", "<br>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
 				return e;
 			})
+			.OrderBy(i => i.DE)
 			.ToList();
 			return View(list);
 		}
@@ -42,6 +43,14 @@ namespace Wörter.Controllers
 
 			viewModel.TypeOptions = Enum.GetValues(typeof(Wortart))
 			.Cast<Wortart>()
+			.Select(g => new SelectListItem
+			{
+				Value = g.ToString(),
+				Text = g.ToString()
+			});
+
+			viewModel.GenderOptions = Enum.GetValues(typeof(Geschlecht))
+			.Cast<Geschlecht>()
 			.Select(g => new SelectListItem
 			{
 				Value = g.ToString(),

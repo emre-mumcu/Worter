@@ -13,4 +13,5 @@ public class WortVM : Wort
 	// select elements first item as 'Select a value' string.
 	public new Wortart? Art { get; set; }
 	public IEnumerable<SelectListItem>? TypeOptions { get; set; }
+	public IEnumerable<SelectListItem>? GenderOptions { get; set; }
 }

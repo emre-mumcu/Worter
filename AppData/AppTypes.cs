@@ -10,4 +10,11 @@ public class AppTypes
 		Adverb = 4,
 		Konjunktiv = 5,
 	}
+
+	public enum Geschlecht
+	{
+		Der = 1,
+		Die = 2,
+		Das = 3,		
+	}
 }

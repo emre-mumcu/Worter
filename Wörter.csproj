@@ -20,9 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models/" />
-    <Folder Include="Views/Wort/" />
-  </ItemGroup>
-
 </Project>
