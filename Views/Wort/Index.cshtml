@@ -22,6 +22,16 @@
 			</div>
 
 			<div class="row my-2">
+				<label asp-for="Art" class="col-sm-3 col-form-label"></label>
+				<div class="col-sm-9">
+					<select asp-for="Art" asp-items="Model.TypeOptions" class="form-control"
+						onchange="onTypeChanged(this.value)">
+						<option value="-1">Select</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row my-2">
 				<label asp-for="EN" class="col-sm-3 col-form-label"></label>
 				<div class="col-sm-9">
 					<textarea asp-for="EN" class="form-control"></textarea>
@@ -54,15 +64,7 @@
 
 			<hr>
 
-			<div class="row my-2">
-				<label asp-for="Art" class="col-sm-3 col-form-label"></label>
-				<div class="col-sm-9">
-					<select asp-for="Art" asp-items="Model.TypeOptions" class="form-control"
-						onchange="onTypeChanged(this.value)">
-						<option value="-1">Select</option>
-					</select>
-				</div>
-			</div>
+
 
 			<div class="row my-2 noun">
 				<div class="col-sm-12 ">

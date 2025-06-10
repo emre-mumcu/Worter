@@ -7,5 +7,7 @@ public class AppTypes
 		Substantiv = 1, // Dingwort
 		Verb = 2,
 		Adjektiv = 3,
+		Adverb = 4,
+		Konjunktiv = 5,
 	}
 }
