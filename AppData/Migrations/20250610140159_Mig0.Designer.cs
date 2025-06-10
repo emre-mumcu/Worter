@@ -11,8 +11,8 @@ using Wörter.AppData;
 namespace Wörter.AppData.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250610122417_Mig1")]
-    partial class Mig1
+    [Migration("20250610140159_Mig0")]
+    partial class Mig0
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,7 +87,6 @@ namespace Wörter.AppData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EN")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Erläuterung")
@@ -109,7 +108,6 @@ namespace Wörter.AppData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TR")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tags")

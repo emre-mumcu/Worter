@@ -7,7 +7,7 @@ using Wörter.AppData;
 
 #nullable disable
 
-namespace Wörter.AppData.Migrations
+namespace Wörter.AppData.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -84,7 +84,6 @@ namespace Wörter.AppData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EN")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Erläuterung")
@@ -106,7 +105,6 @@ namespace Wörter.AppData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TR")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tags")

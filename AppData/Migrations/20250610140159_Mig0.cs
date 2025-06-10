@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Wörter.AppData.Migrations
+namespace Wörter.AppData.Migrations
 {
     /// <inheritdoc />
     public partial class Mig0 : Migration
@@ -40,14 +40,16 @@ namespace Wörter.AppData.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Art = table.Column<int>(type: "INTEGER", nullable: false),
                     DE = table.Column<string>(type: "TEXT", nullable: false),
-                    EN = table.Column<string>(type: "TEXT", nullable: false),
-                    TR = table.Column<string>(type: "TEXT", nullable: false),
+                    EN = table.Column<string>(type: "TEXT", nullable: true),
+                    TR = table.Column<string>(type: "TEXT", nullable: true),
                     Geschlecht = table.Column<string>(type: "TEXT", nullable: true),
                     Aussprache = table.Column<string>(type: "TEXT", nullable: true),
                     Plural = table.Column<string>(type: "TEXT", nullable: true),
                     Verbkonjugation = table.Column<string>(type: "TEXT", nullable: true),
                     Beispiel = table.Column<string>(type: "TEXT", nullable: true),
                     Erläuterung = table.Column<string>(type: "TEXT", nullable: true),
+                    Synonym = table.Column<string>(type: "TEXT", nullable: true),
+                    Gegenteil = table.Column<string>(type: "TEXT", nullable: true),
                     State = table.Column<int>(type: "INTEGER", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Updated = table.Column<DateTime>(type: "TEXT", nullable: false),

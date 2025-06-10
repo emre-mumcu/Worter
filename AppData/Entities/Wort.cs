@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Wörter.AppLib;
 using static Wörter.AppData.AppTypes;
 
 namespace Wörter.AppData.Entities;
@@ -8,8 +9,10 @@ public class Wort: BaseEntity
 {
 	public Wortart Art { get; set; } // Word Type
 	public string DE { get; set; } = null!;
-	public string EN { get; set; } = null!;
-	public string TR { get; set; } = null!;
+	[AtLeastOneRequired("TR", ErrorMessage = "Either EN or TR is required.")]
+	public string? EN { get; set; } = null!;
+	[AtLeastOneRequired("EN", ErrorMessage = "Either EN or TR is required.")]
+	public string? TR { get; set; } = null!;
 	public string? Geschlecht { get; set; } // Gender (for Nouns)
 	public string? Aussprache { get; set; } // Pronunciation
 	public string? Plural { get; set; }  // Plural (for Nouns)
