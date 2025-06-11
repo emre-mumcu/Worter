@@ -1,25 +1,25 @@
-var builder = WebApplication.CreateBuilder(args);
+using MvcZero.AppLib.Configuration;
 
-builder.Services.AddMvc().AddRazorRuntimeCompilation();
+try
+{
+	var builder = WebApplication.CreateBuilder(args)._ConfigureServices();
 
-builder.Services.AddDbContext<Wörter.AppData.AppDbContext>();
+	var app = builder.Build()._Configure().Result;
 
-builder.Services.AddAutoMapper(typeof(Program));
-
-var app = builder.Build();
-
-app.UseStaticFiles();
-
-Wörter.App.Instance._WebHostEnvironment = app.Services.GetRequiredService<IWebHostEnvironment>();
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapStaticAssets();
-
-app.MapDefaultControllerRoute().WithStaticAssets();
-
-app.Run();
+	app.Run();
+}
+catch (Exception ex)
+{
+	Host.CreateDefaultBuilder(args)
+	.ConfigureServices(services => { services.AddMvc(); })
+	.ConfigureWebHostDefaults(webBuilder =>
+	{
+		webBuilder.Configure((ctx, app) =>
+		{
+			app.Run(async (context) =>
+			{
+				await context.Response.WriteAsync($"Error in application: {ex.Message}");
+			});
+		});
+	}).Build().Run();
+}

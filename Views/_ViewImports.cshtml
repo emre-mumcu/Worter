@@ -1,3 +1,26 @@
 ﻿@namespace Wörter.Views
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Wörter
+
 @using Wörter.ViewModels
+@using Wörter.AppLib
+
+@inject RazorTools MyRazorTools
+
+@*@inject EgitimPortal.AppLib.Abstract.IRazorTools MyRazorTools*@
+
+@*
+    The _ViewImports.cshtml file provides a mechanism to include the directives globally for Razor Pages so that we don’t have to add them individually in each and every page. The _ViewImports.cshtml file supports the following directives:
+
+    @addTagHelper
+    @tagHelperPrefix
+    @removeTagHelper
+    @namespace
+    @inject
+    @model
+    @using
+
+    The @addTagHelper, @tagHelperPrefix, and @removeTagHelper directives are basically used to manage of Tag Helpers. The @namespace directive is basically used to specify the namespace that the ViewImports belongs to. With the help of @inject directive, it supports Dependency injection. The @model directive is basically used to specify the Model for your view. The @using directive basically used to include the common namespaces globally so that you don’t have to include the namespaces in each and every view page.
+
+*@

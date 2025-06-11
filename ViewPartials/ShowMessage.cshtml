@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Wörter.AppLib
+@using Wörter.AppLib.Configuration.Ext
+
+@inject IHttpContextAccessor context    
+
+@{
+    string? message = context?.HttpContext?.Session.GetKey<string>(AppConstants.SessionKey_System_Message);
+
+    if (!string.IsNullOrEmpty(message))
+    {
+        context?.HttpContext?.Session.SetKey<string>(AppConstants.SessionKey_System_Message, string.Empty);
+        ShowMessage(message); 
+    }
+}
+
+@functions {
+
+    public void ShowMessage(string message)
+    {
+        <script>
+            function ShowMessage(msg) {
+                Swal.fire({ title: 'Message', html: msg, icon: 'info', confirmButtonText: 'OK' });
+            }
+            ShowMessage('@message');
+        </script>            
+    }
+
+}

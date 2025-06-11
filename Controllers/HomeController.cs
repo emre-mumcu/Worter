@@ -16,3 +16,5 @@ namespace Wörter.Controllers
 		public async Task<IActionResult> Index() => await Task.Run(() => View());
 	}
 }
+
+// HttpContext.Session.SetKey<string>(AppConstants.SessionKey_System_Message, "Hello ;)");

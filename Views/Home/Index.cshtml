@@ -1,1 +1,37 @@
-﻿<partial name="_Menu" />
+﻿@using System.Text.Json
+<partial name="_Menu" />
+
+@inject IHttpContextAccessor _httpContextAccessor
+
+@if (User.Identity.IsAuthenticated)
+{
+	<span>Welcome, @User.Identity.Name!</span>
+}
+
+<div class="row">
+	<div class="col-sm-4 offset-sm-4">
+		<span class="d-block mb-1 badge text-bg-success">@MyRazorTools.GetSessionId()</span>
+		<span class="d-block mb-1 badge text-bg-success">@MyRazorTools.GetControllerName()</span>
+		<span class="d-block mb-1 badge text-bg-danger">@MyRazorTools.GetActionName()</span>
+		<span class="d-block mb-1 badge text-bg-warning">@MyRazorTools.GetActionDescriptor()</span>
+		<span class="d-block mb-1 badge text-bg-info">@MyRazorTools.GetCurrentUri()</span>
+	</div>
+</div>
+
+
+@{
+
+	string json = string.Empty;
+
+	var userPrincipal = _httpContextAccessor.HttpContext?.User;
+
+	if (userPrincipal == null || !_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+		json = JsonSerializer.Serialize(new { Message = "Not authenticated" });
+	else
+		json = JsonSerializer.Serialize(userPrincipal, new JsonSerializerOptions { 
+			WriteIndented = true,
+			ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles
+			});
+}
+
+<pre>@Html.Raw(json)</pre>
