@@ -16,8 +16,8 @@
 
 				<div class="carousel-item @(i == 0 ? "active":"")">
 					<div class="card p-4">
-						<h5 class="text-muted mb-4">Frage @(i + 1). Was bedeutet das Folgende?</h5>
-						<h2 class="frg" grp=@($"q{i + 1}")>@q.Frage</h2>
+						<h5 class="text-info text-opacity-50 mb-4">Frage @(i + 1). Was bedeutet das Folgende?</h5>
+						<h2 class="frg" grp=@($"q{i + 1}")>@q.Frage <small class="fs-6 text-warning">@q.Aussprache</small> </h2>
 						@for(int a=0; a<q.Optionen.Count; a++)
 						{
 							var answer = q.Optionen[a];

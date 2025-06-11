@@ -12,10 +12,15 @@ namespace Wörter.Controllers
 		{
 			var listAll = appDbContext.Wörter
 			.Where(w => w.State == 1)
-			.AsEnumerable() // Fetches data first
-			.Select(e =>
+			// EF Core cannot translate complex C# string operations like .Split() and .Take() into SQL — especially in SQLite, which has limited built-in string handling, and EF Core has no built-in support for splitting strings into arrays in SQL.
+			// So we use AsEnumerable to Bring data into memory
+			.AsEnumerable() // Fetches data first and Brings data into memory
+			.Select(e => { return new { e.DE, e.TR, e.EN }; })
+			.Select(e => new
 			{
-				return new { e.DE, e.TR, e.EN };
+				e.DE,
+				TR = string.Join(",", e.TR?.Split(',').Take(4) ?? Enumerable.Empty<string>()),
+				EN = string.Join(",", e.EN?.Split(',').Take(4) ?? Enumerable.Empty<string>()),
 			})
 			.ToList();
 
@@ -23,9 +28,13 @@ namespace Wörter.Controllers
 			.Where(w => w.State == 1)
 			.AsEnumerable() // Fetches data first
 			.OrderBy(arg => Guid.NewGuid()).Take(5).ToList()
-			.Select(e =>
+			// .Select(e => { return new { e.DE, e.TR, e.EN }; })
+			.Select(e => new
 			{
-				return new { e.DE, e.TR, e.EN };
+				e.DE,
+				TR = string.Join(",", e.TR?.Split(',').Take(4) ?? Enumerable.Empty<string>()),
+				EN = string.Join(",", e.EN?.Split(',').Take(4) ?? Enumerable.Empty<string>()),
+				e.Aussprache
 			})
 			.ToList();
 
@@ -48,6 +57,7 @@ namespace Wörter.Controllers
 				model.Add(new SpielVM
 				{
 					Frage = item.DE,
+					Aussprache = item.Aussprache,
 					Antwort = antwort,
 					Optionen = wrongOptions
 				});

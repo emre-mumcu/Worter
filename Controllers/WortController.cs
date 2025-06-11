@@ -128,7 +128,13 @@ namespace Wörter.Controllers
 				// lookupVM.Meaning = NormalizeString(r1Zeile.InnerText);
 
 				// var w = appDbContext.Wörter.FirstOrDefault(w => EF.Functions.Like(w.DE, model.Word));
-				var w = appDbContext.Wörter.FirstOrDefault(w => w.DE.ToLower() == model.Word.ToLower());
+				// var w = appDbContext.Wörter.FirstOrDefault(w => w.DE.ToLower() == model.Word.ToLower());
+
+				// ·
+
+				var w = appDbContext.Wörter
+				.Where(w => w.DE.ToLower().Replace("·", "").Contains(model.Word.ToLower().Replace("·", "")))
+				.FirstOrDefault();
 
 				if (w is null)
 				{
