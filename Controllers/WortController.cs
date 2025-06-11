@@ -1,7 +1,9 @@
 
+using System.Globalization;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Wörter.AppData;
 using Wörter.AppData.Entities;
 using Wörter.ViewModels;
@@ -78,6 +80,15 @@ namespace Wörter.Controllers
 					we.Sample = ve.Sample;
 					we.Detail = ve.Detail; */
 
+			if (we.Art == Wortart.Substantiv)
+			{
+				we.DE = char.ToUpper(we.DE[0]) + we.DE[1..].ToLower();
+			}
+			else
+			{
+				we.DE = we.DE.ToLower();
+			}
+
 			if (we.Id > 0)
 			{
 				appDbContext.Wörter.Update(we);
@@ -89,7 +100,8 @@ namespace Wörter.Controllers
 				appDbContext.SaveChanges();
 			}
 
-			return RedirectToAction("Index", new { Id = we.Id });
+			// return RedirectToAction("Index", new { Id = we.Id });
+			return RedirectToAction("Index");
 		}
 
 
@@ -115,7 +127,8 @@ namespace Wörter.Controllers
 				// var r1Zeile = vStckKrz.SelectSingleNode(".//*[contains(@class, 'r1Zeile')]");
 				// lookupVM.Meaning = NormalizeString(r1Zeile.InnerText);
 
-				var w = appDbContext.Wörter.FirstOrDefault(w => w.DE == model.Word);
+				// var w = appDbContext.Wörter.FirstOrDefault(w => EF.Functions.Like(w.DE, model.Word));
+				var w = appDbContext.Wörter.FirstOrDefault(w => w.DE.ToLower() == model.Word.ToLower());
 
 				if (w is null)
 				{

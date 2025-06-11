@@ -9,6 +9,9 @@ public class AppTypes
 		Adjektiv = 3,
 		Adverb = 4,
 		Konjunktiv = 5,
+		Präposition = 6,
+		Pronomen = 7,
+		Artikel = 8
 	}
 
 	public enum Geschlecht
