@@ -25,6 +25,8 @@
 
 <form action="/SaveCKE" method="post">
 
+	@Html.AntiForgeryToken()
+
 	<input asp-for="Id" type="hidden" />
 
 	<div class="editor-wrapper">

@@ -17,7 +17,15 @@
 	<a href="/CKE/@Model.Id" class="text-decoration-none"><i class="fa-solid fa-pen-to-square"></i></a>
 	<h1 style="margin-bottom: 25px;">@Model.Title</h1>
 
-	@Html.Raw(Model.TextContent)
+	<div class="row">
+		<div class="col-12 bg-success bg-opacity-10 rounded-4 p-5">
+			@Html.Raw(Model.TextContent)
+		</div>
+	</div>
+	
+	
+	
+
 </div>
 
 
