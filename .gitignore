@@ -21,7 +21,7 @@ Icon?
 # [Mm]igrations
 
 # SQLite Database
-*.db
+# *.db
 *.db-shm
 *.db-wal
 
