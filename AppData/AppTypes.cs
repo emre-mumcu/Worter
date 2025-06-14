@@ -12,7 +12,8 @@ public class AppTypes
 		Präposition = 6,
 		Pronomen = 7,
 		Artikel = 8,
-		Partikel = 9
+		Partikel = 9,
+		Idiom = 10,
 	}
 
 	public enum Geschlecht
