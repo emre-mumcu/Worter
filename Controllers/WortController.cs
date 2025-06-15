@@ -128,13 +128,13 @@ namespace Wörter.Controllers
 				// lookupVM.Meaning = NormalizeString(r1Zeile.InnerText);
 
 				// var w = appDbContext.Wörter.FirstOrDefault(w => EF.Functions.Like(w.DE, model.Word));
-				// var w = appDbContext.Wörter.FirstOrDefault(w => w.DE.ToLower() == model.Word.ToLower());
+				var w = appDbContext.Wörter.FirstOrDefault(w => w.DE.ToLower() == model.Word.ToLower());
 
 				// ·
 
-				var w = appDbContext.Wörter
+/* 				var w = appDbContext.Wörter
 				.Where(w => w.DE.ToLower().Replace("·", "").Contains(model.Word.ToLower().Replace("·", "")))
-				.FirstOrDefault();
+				.FirstOrDefault(); */
 
 				if (w is null)
 				{
@@ -155,8 +155,24 @@ namespace Wörter.Controllers
 		}
 
 
+		[HttpPost("/Autocomplete")]
+		[ValidateAntiForgeryToken]
+		public IActionResult Autocomplete([FromServices] AppDbContext appDbContext, string term)
+		{
+			try
+			{
+				var list = appDbContext.Wörter
+					.Where(w => w.DE.ToLower().Replace("·", "").StartsWith(term))
+					.Take(10)
+					.Select(i => i.DE)
+					.ToList();
 
-
-
+				return Json(list);
+			}
+			catch (Exception ex)
+			{
+				return Json(new List<string>() { ex.Message });
+			}
+		}
 	}
 }

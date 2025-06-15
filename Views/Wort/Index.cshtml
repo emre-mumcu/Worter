@@ -124,10 +124,10 @@
 
 
 @section Scripts {
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@* 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 	<script
-		src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+		src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script> *@
 
 	<script src="@Url.Content("~/js/customValidator.js")"></script>
 
@@ -239,5 +239,44 @@
 					console.error("Error:", error);
 				});
 		}
+
+		$(function () {
+			
+			var token = $('input[name="__RequestVerificationToken"]').val();
+
+			$("#DE").autocomplete({
+				source: function (request, response) {
+					$.ajax({
+						@* url: '@Url.Action("SearchItems", "WortController")', *@
+						url: "/Autocomplete",
+						type: "POST",
+						headers: {
+							'RequestVerificationToken': token
+						},
+						data: { term: request.term },
+						success: function (data) {
+							response(data);
+						}
+					});
+				},
+				minLength: 1 // Minimum characters before search triggers
+			});
+		});
+
 	</script>
 }
+
+@* 
+	If you want to automatically include the token in every AJAX request:
+
+	$(function () {
+		var token = $('input[name="__RequestVerificationToken"]').val();
+
+		$.ajaxSetup({
+			headers: {
+				'RequestVerificationToken': token
+			}
+		});
+	});
+
+*@
