@@ -43,21 +43,27 @@ var languages = [
 
 <partial name="_Menu" />
 
-<form id="editorForm" name="editorForm" action="/SaveTiny" asp-antiforgery="true" method="post">
 
-	@Html.AntiForgeryToken()
-	@Html.ValidationSummary(excludePropertyErrors: false)
-	@Html.ValidationMessage("ERROR", new { @class = "text-danger" })
+	
+	<form id="editorForm" name="editorForm" action="/SaveTiny" asp-antiforgery="true" method="post" class="min-vh-100">
 
-	<input type="hidden" name="Id" value="@Model.Id" />
+			@Html.AntiForgeryToken()
+			@Html.ValidationSummary(excludePropertyErrors: false)
+			@Html.ValidationMessage("ERROR", new { @class = "text-danger" })
 
-	<input asp-for="Title" class="form-control mb-2" placeholder="Title">
+			<input type="hidden" name="Id" value="@Model.Id" />
 
-	<div id="tinyEditor" name="tinyEditor">@Html.Raw(Model.TextContent)</div>
+			<input asp-for="Title" class="form-control mb-2" placeholder="Title">
 
-	<input class="btn btn-primary mt-3" type="submit" value="Save" />
+			<div id="tinyEditor" name="tinyEditor">@Html.Raw(Model.TextContent)</div>
 
-</form>
+			<input class="btn btn-primary mt-3" type="submit" value="Save" />
+
+		</form>
+	
+
+
+
 
 
 @section Scripts {
@@ -82,9 +88,9 @@ var languages = [
 
 			statusbar: true,
 
-			skin: (selectedTheme == "theme-light" ? "mumcusoft" : "oxide-dark"), // https://skin.tiny.cloud/t5/
+			skin: (selectedTheme == "theme-light" ? "mumcusoft" : "mumcusoft"), // https://skin.tiny.cloud/t5/
 
-			content_css: (selectedTheme == "theme-light" ? "light" : "dark"),
+			content_css: (selectedTheme == "theme-light" ? "default" : "dark"),
 
 			inline: false,
 

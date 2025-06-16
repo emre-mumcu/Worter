@@ -24,8 +24,8 @@
 							<th>
 								<a href="/Tiny/@i.Id" class="text-decoration-none text-success"><i
 										class="fa-solid fa-pen-to-square me-4"></i></a>
-								<a href="/TinyDelete/@i.Id" class="text-decoration-none text-danger"><i
-										class="fa-solid fa-trash"></i></a>
+								<a onclick="return confirm('Are you sure you want to delete?')" href="/TinyDelete/@i.Id"
+									class="text-decoration-none text-danger"><i class="fa-solid fa-trash"></i></a>
 							</th>
 							<td>
 								<a href="/View/@i.Id" class="text-decoration-none">@i.Title</a>
