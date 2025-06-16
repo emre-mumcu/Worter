@@ -13,10 +13,13 @@ namespace Wörter.Controllers
 	{
 
 		[HttpGet("/Notes")]
-		public ActionResult Quill()
-		{
-			return View();
-		}
+		public ActionResult Quill() => View();
+
+
+
+
+
+		
 
 		[HttpGet("/CKE")]
 		[HttpGet("/CKE/{id}")]
@@ -58,7 +61,7 @@ namespace Wörter.Controllers
 					appDbContext.Notizen.Remove(entity);
 					appDbContext.SaveChanges();
 				}
-				
+
 			}
 
 			return RedirectToAction("CKE", new { Id = noteID });
@@ -87,6 +90,12 @@ namespace Wörter.Controllers
 			return RedirectToAction("CKE", new { Id = entity.Id });
 		}
 
+
+
+
+
+
+
 		private string NormalizeString(string input)
 		{
 			input = WebUtility.HtmlDecode(input);
@@ -111,6 +120,93 @@ namespace Wörter.Controllers
 
 			return View("List", list);
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		[HttpGet("/Tiny")]
+		[HttpGet("/Tiny/{id}")]
+		public ActionResult Tiny([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, [FromRoute(Name = "id")] string? noteID)
+		{
+			var viewModel = new NotizVM();
+
+			if (!string.IsNullOrEmpty(noteID))
+			{
+				var entity = appDbContext.Notizen.FirstOrDefault(n => n.Id == Convert.ToInt64(noteID));
+				mapper.Map(entity, viewModel);
+			}
+
+			return View(viewModel);
+		}
+
+		[HttpPost("/SaveTiny")]
+		public ActionResult SaveTiny([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, NotizVM vm, string tinyEditor)
+		{
+			Notiz entity = new Notiz();
+
+			mapper.Map(vm, entity);
+
+			entity.TextContent = tinyEditor;
+
+			entity.Slug = NormalizeString(entity.Title);
+
+			if (entity.Id > 0)
+			{
+				appDbContext.Notizen.Update(entity);
+				appDbContext.SaveChanges();
+			}
+			else
+			{
+				appDbContext.Notizen.Add(entity);
+				appDbContext.SaveChanges();
+			}
+
+			return RedirectToAction("Tiny", new { Id = entity.Id });
+		}
+
+		[HttpGet("/View/{id}")]
+		public ActionResult View([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, [FromRoute(Name = "id")] string? noteID)
+		{
+			var viewModel = new NotizVM();
+
+			if (!string.IsNullOrEmpty(noteID))
+			{
+				var entity = appDbContext.Notizen.FirstOrDefault(n => n.Id == Convert.ToInt64(noteID));
+				mapper.Map(entity, viewModel);
+			}
+
+			return View(viewModel);
+		}
+
+		[HttpGet("/TinyDelete/{id}")]
+		public ActionResult TinyDelete([FromServices] AppDbContext appDbContext, [FromServices] IMapper mapper, [FromRoute(Name = "id")] string? noteID)
+		{
+			if (!string.IsNullOrEmpty(noteID))
+			{
+				var entity = appDbContext.Notizen.FirstOrDefault(n => n.Id == Convert.ToInt64(noteID));
+				if (entity != null)
+				{
+					appDbContext.Notizen.Remove(entity);
+					appDbContext.SaveChanges();
+				}
+
+			}
+
+			return RedirectToAction("NoteList");
+		}
+
+
+
+
 
 	}
 }

@@ -2,28 +2,53 @@
 
 <partial name="_Menu" />
 
-<hr>
-
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>Titles</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var i in Model ?? Enumerable.Empty<Wörter.AppData.Entities.Notiz>())
+<div class="row">
+	<div class="col-12 bg-light rounded-3 p-4">
+		@if (Model == null || Model.Count() == 0)
 		{
-			<tr>
-				<th>
-					<a href="/CKE/@i.Id" class="text-decoration-none text-success"><i class="fa-solid fa-pen-to-square me-4"></i></a>
-					<a href="/CKEDelete/@i.Id" class="text-decoration-none text-danger"><i class="fa-solid fa-trash"></i></a>
-				</th>
-				<td>
-					<a href="/CKEView/@i.Id" class="text-decoration-none">@i.Title</a>
-				</td>
-			</tr>
+			<p>Keine Datensätze gefunden!</p>
 		}
-	</tbody>
-</table>
+		else
+		{
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Titles</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var i in Model ?? Enumerable.Empty<Wörter.AppData.Entities.Notiz>())
+					{
+						<tr>
+							<th>
+								<a href="/Tiny/@i.Id" class="text-decoration-none text-success"><i
+										class="fa-solid fa-pen-to-square me-4"></i></a>
+								<a href="/TinyDelete/@i.Id" class="text-decoration-none text-danger"><i
+										class="fa-solid fa-trash"></i></a>
+							</th>
+							<td>
+								<a href="/View/@i.Id" class="text-decoration-none">@i.Title</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
 
+		}
+	</div>
+</div>
+
+
+@* 
+
+Center all content using Flexbox: This works for centering both horizontally and vertically.
+
+<div class="col-12 d-flex justify-content-center align-items-center" style="height: 300px;">
+  <div>
+    <h1>Hello</h1>
+    <p>This is centered both ways.</p>
+  </div>
+</div>
+
+ *@

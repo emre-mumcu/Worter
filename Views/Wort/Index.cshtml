@@ -259,11 +259,26 @@
 						}
 					});
 				},
-				minLength: 1 // Minimum characters before search triggers
+				minLength: 1, // Minimum characters before search triggers
+ 				position: { 
+					my: "left top",    // position of the menu
+					at: "left+120 bottom" // position relative to the input field
+				},
+				open: function () {
+					//$(".ui-autocomplete").css("width", "300px");
+				},  
 			});
 		});
 
 	</script>
+
+	<style>
+		.ui-autocomplete {
+			width: 300px !important; /* or any width you prefer */
+			
+			/* z-index: 10000;  optional, to keep it on top */
+		}
+	</style>
 }
 
 @* 
