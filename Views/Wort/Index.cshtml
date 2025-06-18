@@ -133,6 +133,10 @@
 
 	<script>
 
+		window.addEventListener('beforeunload', function () {
+			console.log("Sayfa yeniden yükleniyor veya terk ediliyor.");
+		});
+
 		@* const onReady = (callback) => {
 			if (document.readyState !== 'loading') {
 				callback();

@@ -13,7 +13,7 @@
 
 <body>
 
-	@Html.Preloader()
+	@* @Html.Preloader() *@
 
 	<partial name="~/ViewPartials/Navbar.cshtml" />
 
@@ -23,7 +23,7 @@
 
 	@await Html.PartialAsync("~/ViewPartials/Scripts.cshtml")
 
-	<partial name="~/ViewPartials/ShowMessage.cshtml" />
+	@* <partial name="~/ViewPartials/ShowMessage.cshtml" /> *@
 	
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
